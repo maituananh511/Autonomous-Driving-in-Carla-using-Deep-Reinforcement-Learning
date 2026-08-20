@@ -81,8 +81,6 @@ This will start training an agent with the default parameters, and checkpoints w
 
 ### How our Training looks like.
 
-<p align="center"><img width="550" src="info/gifs/town 7.gif"> </p>
-<p align="center">Town 7</p>
 <div>
 </div>
 <p align="center"><img width="550" src="info/gifs/town 2.gif"> </p>
