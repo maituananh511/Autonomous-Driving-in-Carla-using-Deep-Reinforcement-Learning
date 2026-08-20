@@ -1,165 +1,154 @@
-# <p align="center"> Autonomous Driving in CARLA using Deep Reinforcement Learning </p>
+# <p align="center"> Implementing a Deep Reinforcement Learning Model for Autonomous Driving </p>
 
-Artificial Intelligence (AI) is growing extraordinarily in almost every area of technology, and research into self-driving cars is one of them. In this project, we utilize state-of-the-art Deep Reinforcement Learning (DRL) methods to train an agent to drive autonomously. We use the open-source simulator [CARLA](http://carla.org/), which provides a hyper-realistic urban simulation environment for training and evaluating our models — since raw RL algorithms come with real risks and safety concerns, simulation lets us test them without those consequences.
+Artificial Intelligence (AI) is growing extraordinarily in almost every area of technology, and research into self-driving cars is one of them. In this work, we will take the liberty to utilize state-of-the-art methods to train our agent to drive autonomously using the Deep Reinforcement Learning (DRL) approach. We will use an open-source simulator, [CARLA](http://carla.org/), to conduct our experiment, providing a hyper-realistic urban simulation environment to train our models. We cannot use our raw algorithms in the real world because they come with many risks and moral questions, so we use these simulators to help us test them.
 
-This project implements **two DRL agents**, each trained to navigate a predetermined route in a simulated urban environment:
+Moreover, DRL has shown promising results in learning complex decision-making tasks, from strategic games to challenging puzzles. Here, we will look at how an on-policy DRL algorithm called Proximal Policy Optimization (PPO) will be used in a simulated driving environment to learn to navigate on a predetermined route. The primary goal of this work is to investigate how a DRL model can train an agent on a continuous state and action space. Our main contribution is a PPO-based agent that can learn to drive reliably in our CARLA-based environment. In addition, we also implemented a Variational Autoencoder (VAE) that compresses high-dimensional observations into a potentially easier-to-learn low-dimensional latent space that can help our agent learn faster.
 
-1. **Proximal Policy Optimization (PPO)** — an on-policy algorithm operating over a continuous state and action space.
-2. **Dueling Deep Q-Network (Dueling DQN)** — an off-policy, value-based algorithm operating over a discretized action space.
 
-Both agents share a common perception pipeline built around a **Variational Autoencoder (VAE)**, which compresses high-dimensional visual observations into a compact latent space, allowing both agents to learn faster and more reliably.
-
-This project builds on the original single-agent (PPO) implementation by Idrees Razak ([repo](https://github.com/idreesshaikh)), extending it with a complete, trained Dueling DQN agent alongside the existing PPO agent.
 
 ## About the Project
 
-This work aims to develop an end-to-end solution for autonomous driving that sends control commands to the vehicle to help it stay on route and avoid collisions. It is divided into the following components:
+This work aims to develop an end-to-end solution for autonomous driving that can send commands to the vehicle to help it drive in the right direction and avoid crashes as much as possible, and is divided in the following components:
 
-1. CARLA environment setup.
-2. Variational Autoencoder (shared perception module).
-3. Proximal Policy Optimization (continuous agent).
-4. Dueling Deep Q-Network (discrete agent).
+1. CARLA Environment setup.
+2. Variational Autoencoder.
+3. Proximal Policy Optimization.
 
-We use [CARLA](http://carla.org/) (version 0.9.8) as our environment (urban simulator).
+We have used [CALRA](http://carla.org/) (version 0.9.8) as our environment (Urban Simulator). We have also summarized some results and analyses to simplify this problem further.
+
+Find the documented work [here](info/documentation/%5BThesis%202022%5D%20IMPLEMENTING%20A%20DEEP%20REINFORCEMENT%20LEARNING%20MODEL%20FOR%20AUTONOMOUS%20DRIVING.pdf) to better understand this whole project.
+
 
 ### Prerequisites
 
-We're using [CARLA](https://github.com/carla-simulator/carla/releases) (0.9.8) + Additional Maps. This project is mainly focused on two towns — Town 02 and Town 07 — so it's recommended to download the Additional Maps package alongside the CARLA server, and copy the maps from the **Additional Maps** directory into the **Main** CARLA directory.
+We're using [CARLA](https://github.com/carla-simulator/carla/releases) (0.9.8) + Additional Maps. We're mainly focused on two towns which are Town 2 and Town 7, therefore we'd advice you download Additional Maps file alongside the CARLA server. You can copy/paste the maps from **Additional Maps** directory to **Main** CARLA directory to ensure everything is seemless.
 
-CARLA supports **Windows** and **Linux**, so it's recommended to set up the project on one of these two OSs.
+Moving forth we'd advice you to setup your project on **Windows** or **Linux** as these are the two OSs supported by CARLA at the moment. 
 
-## Project Setup (Installation)
+## Project Setup (Installations)
 
-1. Clone this repository.
-2. Make sure you have **Python 3.7+ (64-bit)** installed.
-3. Create a virtual environment: `python -m venv venv`.
-4. Activate it: `source venv/Scripts/activate` (Windows) or `source venv/bin/activate` (Linux).
-5. Install dependencies with pip: `pip install -r requirements.txt`.
-6. This project also uses **Poetry** for some dependencies: `cd poetry/ && poetry update`.
-7. Download the **CARLA server (0.9.8)** + **Additional Maps** per the Prerequisites above.
+In order to setup this project you're advised to clone this repository and make sure you have **Python v3.7.+ (64bit)** version installed. After clonding this repository we can create a python virtual environment for this project 💥 let's call it **venv** `python -m venv venv`. You can call it something else if you want :) Now we can activate our virtual env `source venv/Script/activate`, and don't forget to do so before installing any of the dependencies. Moving forward we can install the dependencies with `pip` with the following command `pip install -r requirements.txt`. We're not only using **pip** as our depency manager but **poetry** as well, therefore execute the following command `cd poetry/ && poetry update` in the repo. This will install all the other dependencies now with **poetry**. Once everything is setup up we're nearly there! 
 
-Once the CARLA server is running, start a client, e.g.:
-
-```
-python continuous_driver.py --exp-name=ppo --train=False
-```
+Download the **CARLA server (0.9.8)** + **Additional Maps**, and make sure you've read the Prerequisites of this repo. Once the server is up and running, we can start our client with `python continuous_driver.py --exp-name=ppo --train=False` command. Don't forget to start the Carla server beforehand. Yey!!!
 
 ## Built With
 
-* [Python](https://www.python.org/downloads/release/python-370/) — Programming language
-* [PyTorch](https://pytorch.org/) — Open source machine learning framework
-* [CARLA](http://carla.org/) — Urban driving simulator
-* [Poetry](https://python-poetry.org/) — Packaging and dependency manager
-* [Tensorboard](https://www.tensorflow.org/tensorboard) — Visualization toolkit
+* [Python](https://www.python.org/downloads/release/python-370/) - Programming language
+* [PyTorch](https://pytorch.org/) - Open source machine learning framework
+* [CARLA](http://carla.org/) - An urban driving simulator
+* [Poetry](https://python-poetry.org/) - Packaging and dependency manager
+* [Tensorboard](https://www.tensorflow.org/tensorboard) - Visualization toolkit
+
 
 # Methodology
 
-The architecture centers on four essential components:
+Architectural layout encapsulating the three most essential components: 
 
-1. CARLA simulation.
-2. Shared VAE encoder.
-3. PPO agent (continuous control).
-4. Dueling DQN agent (discrete control).
+1. CARLA Simulation. 
+2. VAE. 
+3. PPO Agent.
+
+<p align="center"> <img width="500" src="info/diagrams/Methodology.png"></p>
+<p align="center"> Architectural Methodology</p>
+
 
 ## How to Run
 
-### Running a Trained PPO Agent
+## Running a Trained Agent
 
-Pretrained PPO agents are provided for both towns (Town 02 & Town 07), stored in `preTrained_models/PPO/<town>/`.
+With the project, we provide you two pretrained PPO agents, one for each town (Town 02 & Town 07).
+The preTrained serialized files for this model are placed in `preTrained_models/PPO/<town>` folder.
 
 ```
 python continuous_driver.py --exp-name ppo --train False
 ```
 
-By default this runs on Town 07. To use Town 02:
+By deafult we are on Town 07 but we can changed it to Town 02 with the following argument addition:
 
 ```
 python continuous_driver.py --exp-name ppo --train False --town Town02
 ```
 
-### Running a Trained Dueling DQN Agent
+## Training a New Agent
 
-Pretrained Dueling DQN agents are provided for both towns, stored in `preTrained_models/DQN/<town>/`.
-
-```
-python discrete_driver.py --exp-name dqn --train False
-```
-
-To use Town 02:
-
-```
-python discrete_driver.py --exp-name dqn --train False --town Town02
-```
-
-### Training a New Agent
-
-To train a new PPO agent:
+In order to train a new agent use the following command:
 
 ```
 python continuous_driver.py --exp-name ppo
 ```
 
-To train a new Dueling DQN agent:
+This will start training an agent with the default parameters, and checkpoints will be written to `checkpoints/PPO/<town>/` and the other metrics will be logged into `logs/PPO/<town>/`. Same as above, by default we're training on Town07 but we can change it to Town02 with this argument addition `--town Town02`.
 
-```
-python discrete_driver.py --exp-name dqn
-```
+### How our Training looks like.
 
-Checkpoints are written to `checkpoints/<algorithm>/<town>/`, and metrics are logged to `logs/<algorithm>/<town>/`. By default training runs on Town 07; add `--town Town02` to train on Town 02 instead.
+<p align="center"><img width="550" src="info/gifs/town 7.gif"> </p>
+<p align="center">Town 7</p>
+<div>
+</div>
+<p align="center"><img width="550" src="info/gifs/town 2.gif"> </p>
+<p align="center">Town 2</p>
 
-## Variational Autoencoder
+## Variational AutoEncoder
 
-The VAE is trained by driving around the environment (both automatically and manually) to collect semantically segmented images, which are then used as input to the autoencoder. The VAE's weights are frozen once trained, so both the PPO and DQN agents train on top of a fixed, shared latent representation.
+The Variational Autoencoder (VAE) training process starts by driving around automatically and manually, collecting 12,000 160x80 semantically segmented images we will be using for training. Then, we will use the SS image as the input to the variational autoencoder (h ∗ 𝑤 ∗ 𝑐 = 38400 input units). VAE’s weights are frozen while our DRL network trains.
 
-To check reconstructed images from a trained VAE:
+<p align="center"><img width="550" src="info/diagrams/VAE.png"> </p>
+<p align="center"> Variational Autoencoder </p>
+
+### Once we have trained our VAE, we can use the following command to check out the reconstructed images:
 
 ```
 cd autoencoder && python reconstructor.py
 ```
+<p align="center"><img width="350" src="info/diagrams/VAE Reconstruction.png"> </p>
+<p align="center"> Original Image to Reconstructed Image </p>
 
-## Project Architecture Pipeline
 
-Both agents follow the same encode → decide → act pipeline: raw camera observations are compressed by the shared VAE encoder into a low-dimensional latent vector, which is then fed into the respective agent (PPO or Dueling DQN) to produce a driving action.
+## Project Architecture Pipeline (Encoder to PPO)
+
+The folloing diagram depicts the VAE+PPO training pipeline. Note: all the variable names are missing the subscript 𝑡.
+
+<p align="center"><img width="720" src="info/diagrams/PPO Network (extended).png"> </p>
+<p align="center"> VAE + PPO training pipeline </p>
+
 
 # File Overview
 
 | File                          | Description                                                                                                           |
 | ------------------------------| --------------------------------------------------------------------------------------------------------------------- |
-| continuous_driver.py          | Script for training/testing the continuous agent (PPO)                                                                |
-| discrete_driver.py            | Script for training/testing the discrete agent (Dueling DQN)                                                          |
-| encoder_init.py               | Uses the trained VAE encoder to turn incoming images (states) into latent space                                       |
-| parameters.py                 | Contains the hyperparameters of the project                                                                           |
-| simulation/connection.py      | CARLA environment class that makes the connection with the CARLA server                                               |
-| simulation/environment.py     | CARLA environment class with the core environment setup (gym-inspired class structure)                                |
-| simulation/sensors.py         | CARLA environment file containing the agent's sensor classes (setup)                                                  |
-| simulation/settings.py        | CARLA environment file containing environment setup parameters                                                        |
+| continuous_driver.py          | Script for training/testing our continuous agent e.g. PPO agent                                                       |
+| discrete_driver.py            | Script for training our discrete agent e.g. Duelling DQN agent (*work in progress*)                                   |
+| encoder_init.py               | script that uses the trained Encoder to turn the incoming images (states) into latent space                           |
+| parameters.py                 | Contains the hyper-paramters of the Project                                                                           |
+| simulation/connection.py      | Carla Environment class that makes the connection with the CARLA server                                               |
+| simulation/environment.py     | CARLA Environment class that contains most of the Environment setup functionality (gym inspired class structure)      |
+| simulation/sensors.py         | Carla Environment file that contains all the agent's sensor classes (setup)                                           |
+| simulation/settings.py        | Carla Environement file that contains environment setup parameters                                                    |
 | runs/                         | Folder containing Tensorboard plots/graphs                                                                            |
-| preTrained_models/PPO         | Folder containing pretrained PPO models' serialized files                                                             |
-| preTrained_models/DQN         | Folder containing pretrained Dueling DQN models' serialized files                                                     |
-| networks/on_policy/agent.py   | Contains the PPO agent code                                                                                           |
-| networks/on_policy/ppo.py     | Contains the PPO network code                                                                                         |
-| networks/off_policy/agent.py  | Contains the Dueling DQN agent code                                                                                    |
-| networks/off_policy/dqn.py    | Contains the Dueling DQN network code                                                                                  |
-| logs/                         | Folder containing logged training metrics for both agents                                                             |
-| info/                         | Folder containing figures, gifs, diagrams, & documentation for the project                                            |
-| checkpoints/                  | Folder containing serialized agent parameters saved during training                                                   |
-| carla/                        | Folder containing the CARLA egg file used to connect to the server                                                    |
-| autoencoder/                  | Folder containing the code for the shared Variational Autoencoder (VAE)                                               |
+| preTrained_models/ppo         | Folder containing pre-trained models' serialized files                                                                |
+| networks/on_policy/agent.py   | Contains code of our PPO agent                                                                                        |
+| networks/on_policy/ppo.py     | Contains code of our PPO network                                                                                      |
+| logs/                         | Folder containing the logged metrics of our agent while training                                                      |
+| info/                         | Folder containing figures, gifs, diagrams, & documentation of the project                                             |
+| checkpints/                   | Folder containing serialized parameters of our agent saved while training                                             |
+| carla/                        | Folder containing CARL egg file, that is used in order to make connection with the server                             |
+| autoencoder/                  | Folder containing the code for our Variational Autoencoder (VAE)                                                      |
 
-## Viewing Training Progress in Tensorboard
+
+## To view the training progress/plots in the Tensorboard:
 
 ```
 tensorboard --logdir runs/
 ```
 
-## Author
+## Authors
 
-**Mai Tuan Anh** — [GitHub](https://github.com/maituananh511)
+**Idrees Razak** - [GitHub](https://github.com/idreesshaikh), [LinkedIn](https://www.linkedin.com/in/idreesrazak/)
 
 ## License
 
-This project is licensed under the Apache-2.0 License — see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgments
 
-This project builds on the original PPO-only implementation by **Idrees Razak** — [GitHub](https://github.com/idreesshaikh), [LinkedIn](https://www.linkedin.com/in/idreesrazak/) — extending it with a complete Dueling DQN agent.
+I thank, **Dr. Toka László**, for his exceptional leadership and unwavering support during this work.
